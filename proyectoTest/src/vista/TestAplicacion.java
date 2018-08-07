@@ -23,7 +23,7 @@ public class TestAplicacion extends javax.swing.JFrame {
     int numero = 0; //Variable usada para el numero de la pregunta
     int tiempo; //Variable usada para generar tiempo
     int respuestas;
-    int solocinco = 1;
+    int solocinco = 0;
     int correctas = 0;
     String respuestaActual;
 
@@ -33,7 +33,7 @@ public class TestAplicacion extends javax.swing.JFrame {
     public TestAplicacion() {
         initComponents();
         setLocationRelativeTo(this);
-        setSize(300, 500);
+        setSize(450,300);
         mostrarPregunta(numero++);
         txtRespuestasTotales.setVisible(false);
         txtResultado.setVisible(false);
@@ -50,13 +50,15 @@ public class TestAplicacion extends javax.swing.JFrame {
                         Thread.sleep(1000);
                         etiquetaTiempo.setText("Tiempo: " + tiempo);
                         if (tiempo >= 5) {
-                            mostrarPregunta(numero++);
-                            solocinco++;
-                            if (solocinco > 5) {
-                                ResultadosFinales.setText("El resulado es: " + correctas + " de 5");
-            ResultadosFinales.setVisible(true);
-                                
+                            if (numero < 8) {
+                                mostrarPregunta(numero++);
+                                solocinco++;
+                                if (solocinco > 8) {
+                                    ResultadosFinales.setText("El resulado es: " + correctas + " de 8");
+                                    ResultadosFinales.setVisible(true);
+                                }
                             }
+                            break;
                         }
                     } catch (Exception e) {
                     }
@@ -166,31 +168,24 @@ public class TestAplicacion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.Y_AXIS));
 
         etiquetaPregunta.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
         etiquetaPregunta.setText("Aqui ira la pregunta");
-        getContentPane().add(etiquetaPregunta);
 
         etiquetaTiempo.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
         etiquetaTiempo.setText("Tiempo");
-        getContentPane().add(etiquetaTiempo);
 
         buttonGroup1.add(rb1);
         rb1.setText("jRadioButton1");
-        getContentPane().add(rb1);
 
         buttonGroup1.add(rb2);
         rb2.setText("jRadioButton2");
-        getContentPane().add(rb2);
 
         buttonGroup1.add(rb3);
         rb3.setText("jRadioButton3");
-        getContentPane().add(rb3);
 
         buttonGroup1.add(rb4);
         rb4.setText("jRadioButton4");
-        getContentPane().add(rb4);
 
         jButton1.setText("Siguiente");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -198,35 +193,84 @@ public class TestAplicacion extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
 
         txtcorrectas.setText("..");
-        getContentPane().add(txtcorrectas);
 
         txtResultado.setText("Resultado");
-        getContentPane().add(txtResultado);
 
         txtRespuestasTotales.setText("Respuestas totales");
-        getContentPane().add(txtRespuestasTotales);
 
         ResultadosFinales.setText("hola");
-        getContentPane().add(ResultadosFinales);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(etiquetaPregunta)
+                    .addComponent(etiquetaTiempo)
+                    .addComponent(rb1)
+                    .addComponent(rb2)
+                    .addComponent(rb3)
+                    .addComponent(rb4)
+                    .addComponent(jButton1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtcorrectas)
+                            .addComponent(txtResultado)
+                            .addComponent(txtRespuestasTotales)
+                            .addComponent(ResultadosFinales))))
+                .addContainerGap(279, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(etiquetaPregunta)
+                .addGap(0, 0, 0)
+                .addComponent(etiquetaTiempo)
+                .addGap(18, 18, 18)
+                .addComponent(rb1)
+                .addGap(0, 0, 0)
+                .addComponent(rb2)
+                .addGap(0, 0, 0)
+                .addComponent(rb3)
+                .addGap(0, 0, 0)
+                .addComponent(rb4)
+                .addGap(8, 8, 8)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtcorrectas)
+                .addGap(0, 0, 0)
+                .addComponent(txtResultado)
+                .addGap(0, 0, 0)
+                .addComponent(txtRespuestasTotales)
+                .addGap(0, 0, 0)
+                .addComponent(ResultadosFinales)
+                .addContainerGap())
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //usar este       
-        solocinco++;
-        if (txtcorrectas.getText().equals(txtResultado.getText())) {
-            correctas++;
+        if (numero < 5) {
+            if (txtcorrectas.getText().equals(txtResultado.getText())) {
+                correctas++;
+            }
+            txtRespuestasTotales.setText("" + correctas);
+            mostrarPregunta(numero++);
         }
-        txtRespuestasTotales.setText("" + correctas);
-        if (solocinco > 5) {
+        solocinco++;
+        if (solocinco == 5) {
+            if (txtcorrectas.getText().equals(txtResultado.getText())) {
+                correctas++;
+            }
+            txtRespuestasTotales.setText("" + correctas);
             ResultadosFinales.setText("El resulado es: " + correctas + " de 5");
             ResultadosFinales.setVisible(true);
         }
-        mostrarPregunta(numero++);
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
