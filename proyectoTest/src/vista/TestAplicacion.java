@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modelo.Opcion;
 import modelo.PersistenciaPregunta;
 import modelo.Pregunta;
@@ -21,10 +22,9 @@ import modelo.Pregunta;
 public class TestAplicacion extends javax.swing.JFrame {
 
     int numero = 0; //Variable usada para el numero de la pregunta
-    int tiempo; //Variable usada para generar tiempo
-    int respuestas;
-    int solocinco = 0;
-    int correctas = 0;
+    int tiempo; //Variable usada para generar tiempo   
+    int contador = 0; //Contador de preguntas mostradas
+    int correctas = 0; //Numero de respuestas correctas
     String respuestaActual;
 
     /**
@@ -33,7 +33,7 @@ public class TestAplicacion extends javax.swing.JFrame {
     public TestAplicacion() {
         initComponents();
         setLocationRelativeTo(this);
-        setSize(450,300);
+        setSize(450, 300);
         mostrarPregunta(numero++);
         txtRespuestasTotales.setVisible(false);
         txtResultado.setVisible(false);
@@ -50,11 +50,21 @@ public class TestAplicacion extends javax.swing.JFrame {
                         Thread.sleep(1000);
                         etiquetaTiempo.setText("Tiempo: " + tiempo);
                         if (tiempo >= 5) {
-                            if (numero < 8) {
+                            if (numero < 5) {
                                 mostrarPregunta(numero++);
-                                solocinco++;
-                                if (solocinco > 8) {
-                                    ResultadosFinales.setText("El resulado es: " + correctas + " de 8");
+                                contador++;
+                                if (contador > 5) {
+                                    ResultadosFinales.setText("El resulado es: " + correctas + " de 5");
+                                    etiquetaPregunta.setVisible(false);
+                                    etiquetaTiempo.setVisible(false);
+                                    rb1.setVisible(false);
+                                    rb2.setVisible(false);
+                                    rb3.setVisible(false);
+                                    rb4.setVisible(false);
+                                    jButton1.setVisible(false);
+                                    txtcorrectas.setVisible(false);
+                                    txtResultado.setVisible(false);
+                                    txtRespuestasTotales.setVisible(false);
                                     ResultadosFinales.setVisible(true);
                                 }
                             }
@@ -200,6 +210,8 @@ public class TestAplicacion extends javax.swing.JFrame {
 
         txtRespuestasTotales.setText("Respuestas totales");
 
+        ResultadosFinales.setFont(new java.awt.Font("Tw Cen MT", 0, 24)); // NOI18N
+        ResultadosFinales.setForeground(new java.awt.Color(255, 51, 51));
         ResultadosFinales.setText("hola");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -212,7 +224,10 @@ public class TestAplicacion extends javax.swing.JFrame {
                     .addComponent(etiquetaTiempo)
                     .addComponent(rb1)
                     .addComponent(rb2)
-                    .addComponent(rb3)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(rb3)
+                        .addGap(48, 48, 48)
+                        .addComponent(ResultadosFinales))
                     .addComponent(rb4)
                     .addComponent(jButton1)
                     .addGroup(layout.createSequentialGroup()
@@ -220,9 +235,8 @@ public class TestAplicacion extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtcorrectas)
                             .addComponent(txtResultado)
-                            .addComponent(txtRespuestasTotales)
-                            .addComponent(ResultadosFinales))))
-                .addContainerGap(279, Short.MAX_VALUE))
+                            .addComponent(txtRespuestasTotales))))
+                .addContainerGap(266, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -235,7 +249,9 @@ public class TestAplicacion extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(rb2)
                 .addGap(0, 0, 0)
-                .addComponent(rb3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rb3)
+                    .addComponent(ResultadosFinales))
                 .addGap(0, 0, 0)
                 .addComponent(rb4)
                 .addGap(8, 8, 8)
@@ -246,9 +262,7 @@ public class TestAplicacion extends javax.swing.JFrame {
                 .addComponent(txtResultado)
                 .addGap(0, 0, 0)
                 .addComponent(txtRespuestasTotales)
-                .addGap(0, 0, 0)
-                .addComponent(ResultadosFinales)
-                .addContainerGap())
+                .addGap(25, 25, 25))
         );
 
         pack();
@@ -262,14 +276,25 @@ public class TestAplicacion extends javax.swing.JFrame {
             txtRespuestasTotales.setText("" + correctas);
             mostrarPregunta(numero++);
         }
-        solocinco++;
-        if (solocinco == 5) {
+        contador++;
+        if (contador == 5) {
             if (txtcorrectas.getText().equals(txtResultado.getText())) {
                 correctas++;
             }
             txtRespuestasTotales.setText("" + correctas);
             ResultadosFinales.setText("El resulado es: " + correctas + " de 5");
-            ResultadosFinales.setVisible(true);
+            etiquetaPregunta.setVisible(false);
+            etiquetaTiempo.setVisible(false);
+            rb1.setVisible(false);
+            rb2.setVisible(false);
+            rb3.setVisible(false);
+            rb4.setVisible(false);
+            jButton1.setVisible(false);
+            txtcorrectas.setVisible(false);
+            txtResultado.setVisible(false);
+            txtRespuestasTotales.setVisible(false);
+            ResultadosFinales.setVisible(true);            
+            JOptionPane.showMessageDialog(this, "Alumno: Rivera Rodriguez Carlos Adrian, si deseas volver a realizar el test reinicia el programa");
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed

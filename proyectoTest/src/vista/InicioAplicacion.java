@@ -5,6 +5,8 @@
  */
 package vista;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Oldspice
@@ -17,6 +19,7 @@ public class InicioAplicacion extends javax.swing.JFrame {
     public InicioAplicacion() {
         initComponents();
         setLocationRelativeTo(this);
+        JOptionPane.showMessageDialog(this, "Alumno: Rivera Rodriguez Carlos Adrian, 14050500,  Java 2");
     }
 
     /**

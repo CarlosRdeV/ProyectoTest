@@ -5,6 +5,7 @@
  */
 package vista;
 
+import javax.swing.JOptionPane;
 import modelo.Usuario;
 import modelo.ValidarUsuario;
 
@@ -21,6 +22,7 @@ public class AdministracionAplicacion extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(this);
         AlertaError.setVisible(false);
+        JOptionPane.showMessageDialog(this, "carlos , 14050500");
     }
 
     /**
